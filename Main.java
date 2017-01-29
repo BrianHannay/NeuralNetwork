@@ -14,16 +14,14 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Brain {
+	final String  brainFolder = "network";
 
-
-    public Brain(int neuron, int , int i2) {
+    public Brain(String filename, int neuron, int inputs, int outputs) {
 
     }
 
-    public String getOutput(input){
-    	switch(input){
+    public String getOutput(String input){
 
-    	}
     }
 
     public static void main(String[] args) {
@@ -44,10 +42,12 @@ public class Brain {
         int neuronsRequired = 10;
 		int inputs = 20;
 		int outputs = 4;// (0 - 16); only 0-9 used
-    	Brain b = new Brain(neuronsRequired, inputs, 4);
+    	Brain b = new Brain(neuronsRequired, inputs, outputs);
 
         // Our character "images". Imagine `1`s as black pixels.
-        List<List<boolean>> numbers = [[
+        ArrayList<ArrayList<boolean>> numbers = new ArrayList<ArrayList<boolean>>();
+        numbers.add(new ArrayList<boolean>());
+         = [[
         	0, 1, 1, 0,
             1, 0, 0, 1,
             1, 0, 0, 1,

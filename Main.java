@@ -14,10 +14,11 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Brain {
-	final String  brainFolder = "network";
+	final String BRAIN_FOLDER = "network";
+	File userfile = null;
 
     public Brain(String filename, int neuron, int inputs, int outputs) {
-
+    	File userFileIn = new FileInputStream(BRAIN_FOLDER + "/" +filename);	
     }
 
     public String getOutput(String input){
@@ -26,7 +27,6 @@ public class Brain {
 
     public static void main(String[] args) {
         Brain b = Brain.createDefault();
-
         while (true){
             Scanner s = new Scanner(System.in);
             String pattern = b.getPattern();

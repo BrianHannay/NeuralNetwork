@@ -12,125 +12,40 @@ package com.brian;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.io.*;
 
-public class Brain {
-	final String BRAIN_FOLDER = "network";
+import javax.swing.*;
+
+public class Main {
 	File userfile = null;
 
-    public Brain(String filename, int neuron, int inputs, int outputs) {
-    	File userFileIn = new FileInputStream(BRAIN_FOLDER + "/" +filename);	
-    }
-
-    public String getOutput(String input){
-
-    }
-
     public static void main(String[] args) {
-        Brain b = Brain.createDefault();
+        Brain b = new Brain(getUserName(), 50, 4, 20, 1);
+        Window w = new Window();
+
+        w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        w.setSize(600, 400);
+        w.setResizable(false);
+        w.setVisible(true);
+
+        Window.ih = new InputHandler(w);
+
+        w.init();
+
+        //todo: if you need to speed up the game, remove these two lines.
+        Window.frameTimer = new Timer(15, w);
+        Window.frameTimer.start();
         while (true){
             Scanner s = new Scanner(System.in);
-            String pattern = b.getPattern();
-            String input = s.findInLine(Pattern.compile());
-            listenForPrompts();
+            String input = s.nextLine();
             System.out.println(b.getOutput(input));
-
         }
     }
 
-    public static Brain createDefault(){    	
-        //new brain with 10 neurons, 20 inputs, 4 outputs
-        int neuronsRequired = 10;
-		int inputs = 20;
-		int outputs = 4;// (0 - 16); only 0-9 used
-    	Brain b = new Brain(neuronsRequired, inputs, outputs);
-
-        // Our character "images". Imagine `1`s as black pixels.
-        ArrayList<ArrayList<boolean>> numbers = new ArrayList<ArrayList<boolean>>();
-        numbers.add(new ArrayList<boolean>());
-         = [[
-        	0, 1, 1, 0,
-            1, 0, 0, 1,
-            1, 0, 0, 1,
-            1, 0, 0, 1,
-            0, 1, 1, 0
-        ],
-        [
-		    0, 0, 1, 0,
-		    0, 0, 1, 0,
-		    0, 0, 1, 0,
-		    0, 0, 1, 0,
-	        0, 0, 1, 0
-        ],
-        [
-	        0, 1, 1, 0,
-	        1, 0, 0, 1,
-	        0, 0, 1, 0,
-	        0, 1, 0, 0,
-	        1, 1, 1, 1
-        ],
-        [
-	        1, 1, 1, 1,
-	        0, 0, 0, 1,
-	        0, 1, 1, 1,
-	        0, 0, 0, 1,
-	        1, 1, 1, 1
-        ],
-        [
-        	1, 0, 1, 0,
-            1, 0, 1, 0,
-            1, 1, 1, 1,
-            0, 0, 1, 0,
-            0, 0, 1, 0
-        ],
-        [
-        	0, 1, 1, 1,
-            0, 1, 0, 0,
-            0, 1, 1, 0,
-            0, 0, 0, 1,
-            1, 1, 1, 0
-        ],
-        [
-        	0, 1, 1, 1,
-            1, 0, 0, 0,
-            1, 1, 1, 0,
-            1, 0, 0, 1,
-            1, 1, 1, 1
-        ],
-        [
-	        1, 1, 1, 1,
-	        0, 0, 0, 1,
-	        0, 0, 1, 0,
-	        0, 0, 1, 0,
-	        0, 1, 0, 0
-        ],
-        [
-        	0, 1, 1, 0,
-            1, 0, 0, 1,
-            0, 1, 1, 0,
-            1, 0, 0, 1,
-            0, 1, 1, 0
-        ],
-        [
-	        0, 1, 1, 1,
-            1, 0, 0, 1,
-            0, 1, 1, 1,
-            0, 0, 0, 1,
-            0, 0, 0, 1
-        ];
-
-        int[][] expected = new int[9][4];
-
-        for(int i=0; i<9; i++){
-            expected[i] = new int[4];
-            for(int shift = 0; shift < 4; shift++){
-                expected[i][shift] = (i>>shift)%2 == 1? 1 : 0;
-            }
-        };
-
-        b.train(int[][] expected, int[][] numbers){
-
-        }
-        return b;
+    public static String getUserName(){
+    	System.out.println("Who should I summon?");
+    	Scanner s = new Scanner(System.in);
+    	s.close();
+    	return s.nextLine();
     }
-
 }

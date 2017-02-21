@@ -1,14 +1,21 @@
 package com.brian;
 
-//ENFORCED
-//
+/**
+*ENFORCED
+*MAIN 
+IMPORTANT!  
+
+TODO: add input neurons for 
+    date, time,
+    web forums (reddit)
+    
+
+**/
 
 
-//
-//MAIN
-// TODO SCAN GITHUB/WIKIPEDIA/GOOGLE/ETC FRAGMENTS
+//TODO crawl the web for code and learn from it (sandboxed)
+
 // TODO GENETIC ALGORITHMS - WIKIPEDIA -< GITHUB  (maybe google -> SO / SE)
-
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -21,6 +28,8 @@ public class Main {
 
     public static void main(String[] args) {
         Brain b = new Brain(getUserName(), 50, 4, 20, 1);
+        /*
+        TODO
         Window w = new Window();
 
         w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +44,7 @@ public class Main {
         //todo: if you need to speed up the game, remove these two lines.
         Window.frameTimer = new Timer(15, w);
         Window.frameTimer.start();
+*/
         while (true){
             Scanner s = new Scanner(System.in);
             String input = s.nextLine();

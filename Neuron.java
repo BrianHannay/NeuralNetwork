@@ -16,7 +16,9 @@ class Neuron{
 		init(inputs, seed);
 	}
 
-	//input neuron -- the first ones created will have no "inputs" because they are actually more like nerves which provide input
+	/**
+	* input neuron -- the first ones created will have no @inputs because they are similar to nerves or senses to provide input
+	**/
 	public Neuron(){
 		init(new ArrayList<Neuron>(), (new Random()).nextLong());
 	}
@@ -26,7 +28,6 @@ class Neuron{
 		Random r = new Random(seed);
 		for(; weights.size()<inputs.size(); weights.add(r.nextDouble()));
 		bias = r.nextDouble();
-
 	}
 
 	public void receiveData(Data datapacket){
@@ -55,7 +56,6 @@ class Neuron{
 			ArrayList<Data> outputs = inputs.get(i).getOutput();
 			for(int j=0; j < outputs.size(); j++){
 			    sum += processingData.getValue() * weights.get(i);
-
 			}
 		}
 
@@ -71,4 +71,9 @@ class Neuron{
 	private double sigmoid(double input){
 		return 1 / (1 + Math.exp(-input));
 	} 
+
+
+	protected void informError(ArrayList<Data> key, double error){
+
+	}
 }

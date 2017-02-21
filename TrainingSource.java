@@ -9,25 +9,20 @@ import java.util.ArrayList;
 
 class TrainingSource {
 
-	/**
-	* validSources is an ArrarList of string url keys and associated Parsers.
-	**/
-	HashMap<URL, TrainingSourceParser> validSources = new ArrayList<>();
-	TrainingSourceParser parser;
 
-	//ignore sublime text's weird syntax highlighting on URL.
 	public URL currentDownloadURL;
+	public HashMap<URL, ValidSourceParser> validSources = new HashMap<>();
 	public static URL RANDOM_REDDIT = new URL("https://reddit.com/r/random.json");
+	
+	private ValidSourceParser parser;
 
 	public TrainingSource(URL url) {
 		setDownloadURL(url);
-		if(validSources.length() == 0){
-			initialize();
-		}
+		initialize();
 	}
 
 	public void setDownloadURL(URL url){
-		this.url = url;
+		this.currentDownloadURL = url;
 
 		if(validSources.containsKey(url)){
 			this.parser = validSources.get(url);
@@ -37,20 +32,20 @@ class TrainingSource {
 	}
 
 
-	public static void initialize(){
+	public void initialize(){
 
 		//error handling
-		if(TrainingSource.initialized){
+		if(validSources.size() == 0){
 			throw new RuntimeException("Initialize function should not be called twice");
 		}
 
 		//initialize sources
-		validSources.add(
-			new Pair<>(RANDOM_REDDIT, new TrainingSourceParser(){
+		validSources.put(RANDOM_REDDIT, 
+			new ValidSourceParser(){
 				public ArrayList<String> parse(String fullPageData){
-					Matcher inputMatcher = Pattern.compile("^").matcher();
+					Pattern inputMatcher = Pattern.compile("^");
 				}
-			})
+			}
 		);
 
 	}
@@ -58,19 +53,32 @@ class TrainingSource {
 	public HashMap.Entry<ArrayList<Data>, ArrayList<Data>> getInputOutputPair(){
 		if(!parser.hasCachedPage()){
 			//do date checking for download limits
-
+			parser.download();
 		}
 
 		parser.parse();
 	}
 
 
-	public abstract class TrainingSourceParser{
+	public abstract class ValidSourceParser{
 
-
-		public abstract ArrayList<String> parse(String fullPageData){
-
+		public ValidSourceParser(URL url){
+			this.url = url;
 		}
 
+		public URL url;
+		public String page = null;
+
+		public void parse();
+
+		public abstract HashMap<ArrayList<String>, ArrayList<String>> parse(String fullPageData);
+
+		public boolean hasCachedPage(){
+			return page != null;
+		}
+
+		public download(){
+
+		}
 	}
 }
